@@ -1,0 +1,29 @@
+{
+  "name": "librvry",
+  "version": "1.0.0",
+  "description": "A personal book library project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./start.js",
+    "dev": "concurrently 'cd ./client && npm start' 'npm start'"
+  },
+  "author": "Vinny E",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.5.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.1.5",
+    "node-fetch": "^2.1.2",
+    "passport": "^0.4.0",
+    "passport-local-mongoose": "^5.0.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.5"
+  }
+}
