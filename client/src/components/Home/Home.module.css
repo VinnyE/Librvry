@@ -1,0 +1,28 @@
+.wrapper {
+  display: grid;
+  grid-template-areas: "sidebar sidebar content content content content content content content content content content";
+}
+
+.aside {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+}
+
+.categoriesHeading {
+  font-size: 2.4rem;
+  color: #000;
+  font-weight: 400;
+  margin: 0;
+}
+
+.search {
+  padding: 0.8rem;
+  border: 1px solid #dcdcdd;
+  font-family: inherit;
+  width: 100%;
+  font-size: 1.4rem;
+  border-radius: 0.2rem;
+}
