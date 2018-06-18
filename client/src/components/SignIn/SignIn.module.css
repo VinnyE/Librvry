@@ -13,7 +13,7 @@
 }
 
 .label {
-  line-height: 1.5;
+  line-height: 1.75;
   font-size: 1.6rem;
   margin-bottom: 1.6rem;
   display: block;
@@ -28,4 +28,10 @@
   width: 100%;
   padding: 0.8rem;
   cursor: pointer;
+}
+
+.errorMsg {
+  color: red;
+  font-size: 1.4rem;
+  display: block;
 }
