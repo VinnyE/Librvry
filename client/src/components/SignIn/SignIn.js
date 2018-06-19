@@ -15,7 +15,18 @@ class SignIn extends Component {
     }
   };
 
-  handleSubmit = () => {};
+  handleSubmit = evt => {
+    evt.preventDefault();
+    const errors = this.validate(
+      this.state.fields.email,
+      this.state.fields.password
+    );
+    const hasErrors = Object.keys(errors).some(val => errors[val]);
+
+    if (hasErrors) {
+      return;
+    }
+  };
 
   validate = (email, password) => {
     const { touched } = this.state;
@@ -101,6 +112,7 @@ class SignIn extends Component {
           value="Log In"
           className={styles.signInBtn}
           disabled={hasErrors}
+          onClick={this.handleSubmit}
         />
       </form>
     );
