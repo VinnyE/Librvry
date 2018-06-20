@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import isEmail from "validator/lib/isEmail";
 
 import styles from "./SignIn.module.css";
+import { AuthContext } from "../Auth/EnhancedAuthProvider";
 
 class SignIn extends Component {
   state = {
@@ -15,7 +16,7 @@ class SignIn extends Component {
     }
   };
 
-  handleSubmit = evt => {
+  handleSubmit = actions => evt => {
     evt.preventDefault();
     const errors = this.validate(
       this.state.fields.email,
@@ -26,6 +27,8 @@ class SignIn extends Component {
     if (hasErrors) {
       return;
     }
+
+    actions.requestSignIn(this.state.fields);
   };
 
   validate = (email, password) => {
@@ -76,45 +79,55 @@ class SignIn extends Component {
     const hasErrors = Object.keys(errors).some(val => errors[val]);
 
     return (
-      <form onSubmit={this.handleSubmit} className={styles.form}>
-        <label className={styles.label} htmlFor="email">
-          Email:
-          <input
-            type="text"
-            placeholder="example@example.com"
-            id="email"
-            className={styles.textInput}
-            value={this.state.email}
-            onBlur={this.handleBlur("email")}
-            onChange={this.handleEmailChange}
-          />
-          {errors.email && (
-            <span className={styles.errorMsg}>{errors.email}</span>
-          )}
-        </label>
-        <label className={styles.label} htmlFor="password">
-          Password:
-          <input
-            type="text"
-            placeholder="example123"
-            id="password"
-            className={styles.textInput}
-            value={this.state.password}
-            onBlur={this.handleBlur("password")}
-            onChange={this.handlePasswordChange}
-          />
-          {errors.password && (
-            <span className={styles.errorMsg}>{errors.password}</span>
-          )}
-        </label>
-        <input
-          type="submit"
-          value="Log In"
-          className={styles.signInBtn}
-          disabled={hasErrors}
-          onClick={this.handleSubmit}
-        />
-      </form>
+      <AuthContext.Consumer>
+        {context => {
+          console.log(context);
+          return (
+            <form
+              onSubmit={this.handleSubmit(context.actions)}
+              className={styles.form}
+            >
+              <label className={styles.label} htmlFor="email">
+                Email:
+                <input
+                  type="text"
+                  placeholder="example@example.com"
+                  id="email"
+                  className={styles.textInput}
+                  value={this.state.email}
+                  onBlur={this.handleBlur("email")}
+                  onChange={this.handleEmailChange}
+                />
+                {errors.email && (
+                  <span className={styles.errorMsg}>{errors.email}</span>
+                )}
+              </label>
+              <label className={styles.label} htmlFor="password">
+                Password:
+                <input
+                  type="text"
+                  placeholder="example123"
+                  id="password"
+                  className={styles.textInput}
+                  value={this.state.password}
+                  onBlur={this.handleBlur("password")}
+                  onChange={this.handlePasswordChange}
+                />
+                {errors.password && (
+                  <span className={styles.errorMsg}>{errors.password}</span>
+                )}
+              </label>
+              <input
+                type="submit"
+                value="Log In"
+                className={styles.signInBtn}
+                disabled={hasErrors}
+                // onClick={this.handleSubmit}
+              />
+            </form>
+          );
+        }}
+      </AuthContext.Consumer>
     );
   }
 }
