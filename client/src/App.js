@@ -9,8 +9,8 @@ import EnhancedAuthProvider, {
 class App extends Component {
   render() {
     return (
-      <EnhancedAuthProvider>
-        <Router>
+      <Router>
+        <EnhancedAuthProvider>
           <div className={styles.App}>
             <Nav />
             <Switch>
@@ -18,8 +18,8 @@ class App extends Component {
               <Route path="/signin" component={SignIn} />
             </Switch>
           </div>
-        </Router>
-      </EnhancedAuthProvider>
+        </EnhancedAuthProvider>
+      </Router>
     );
   }
 }

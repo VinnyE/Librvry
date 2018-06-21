@@ -3,6 +3,7 @@ import isEmail from "validator/lib/isEmail";
 
 import styles from "./SignIn.module.css";
 import { AuthContext } from "../Auth/EnhancedAuthProvider";
+import { Redirect } from "react-router-dom";
 
 class SignIn extends Component {
   state = {
@@ -28,7 +29,7 @@ class SignIn extends Component {
       return;
     }
 
-    actions.requestSignIn(this.state.fields);
+    actions.handleSignIn(this.state.fields);
   };
 
   validate = (email, password) => {
@@ -81,7 +82,10 @@ class SignIn extends Component {
     return (
       <AuthContext.Consumer>
         {context => {
-          console.log(context);
+          if (context.state.token) {
+            return <Redirect to="/" />;
+          }
+
           return (
             <form
               onSubmit={this.handleSubmit(context.actions)}
