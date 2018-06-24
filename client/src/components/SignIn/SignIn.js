@@ -4,6 +4,7 @@ import isEmail from "validator/lib/isEmail";
 import styles from "./SignIn.module.css";
 import { AuthContext } from "../Auth/EnhancedAuthProvider";
 import { Redirect } from "react-router-dom";
+import loadingSpinner from "../../assets/spinner.svg";
 
 class SignIn extends Component {
   state = {
@@ -30,6 +31,20 @@ class SignIn extends Component {
     }
 
     actions.handleSignIn(this.state.fields);
+    this.resetForm();
+  };
+
+  resetForm = () => {
+    this.setState({
+      fields: {
+        email: "",
+        password: ""
+      },
+      touched: {
+        email: false,
+        password: false
+      }
+    });
   };
 
   validate = (email, password) => {
@@ -78,6 +93,9 @@ class SignIn extends Component {
       this.state.fields.password
     );
     const hasErrors = Object.keys(errors).some(val => errors[val]);
+    const hasTouched = Object.keys(this.state.touched).some(
+      val => this.state.touched[val]
+    );
 
     return (
       <AuthContext.Consumer>
@@ -98,7 +116,7 @@ class SignIn extends Component {
                   placeholder="example@example.com"
                   id="email"
                   className={styles.textInput}
-                  value={this.state.email}
+                  value={this.state.fields.email}
                   onBlur={this.handleBlur("email")}
                   onChange={this.handleEmailChange}
                 />
@@ -109,25 +127,39 @@ class SignIn extends Component {
               <label className={styles.label} htmlFor="password">
                 Password:
                 <input
-                  type="text"
+                  type="password"
                   placeholder="example123"
                   id="password"
                   className={styles.textInput}
-                  value={this.state.password}
+                  value={this.state.fields.password}
                   onBlur={this.handleBlur("password")}
                   onChange={this.handlePasswordChange}
                 />
                 {errors.password && (
                   <span className={styles.errorMsg}>{errors.password}</span>
                 )}
+                {context.state &&
+                  context.state.responseError &&
+                  !hasTouched &&
+                  !hasErrors &&
+                  !context.state.requesting && (
+                    <span className={styles.errorMsg}>
+                      {context.state.responseError}
+                    </span>
+                  )}
               </label>
-              <input
+              <button
                 type="submit"
                 value="Log In"
                 className={styles.signInBtn}
                 disabled={hasErrors}
-                // onClick={this.handleSubmit}
-              />
+              >
+                {context.state.requesting ? (
+                  <img alt="Animated Loading Spinner" src={loadingSpinner} />
+                ) : (
+                  "Log In"
+                )}
+              </button>
             </form>
           );
         }}

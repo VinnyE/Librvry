@@ -11,12 +11,12 @@ exports.logIn = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return res.status(500).json({
-        error: "An error occured attempting to log in user"
+        error: "An error occured attempting to log in user."
       });
     }
     if (!user) {
       return res.status(401).json({
-        error: "Incorrect email or password"
+        error: "The username or password you entered is incorrect."
       });
     }
 
@@ -25,7 +25,7 @@ exports.logIn = (req, res, next) => {
         console.log(err);
 
         return res.status(500).json({
-          error: "An error occured attempting to log in user"
+          error: "An error occured attempting to log in user."
         });
       }
 
