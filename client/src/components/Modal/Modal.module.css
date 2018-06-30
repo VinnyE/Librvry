@@ -1,0 +1,18 @@
+.modalBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.modal {
+  position: absolute;
+  background: #fff;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  padding: 1.5rem;
+  border: 2px solid #444;
+}

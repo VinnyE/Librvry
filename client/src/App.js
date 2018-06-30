@@ -29,19 +29,16 @@ class App extends Component {
     ); // not initial render
 
     return (
-      <Router>
-        <EnhancedAuthProvider>
-          <div className={styles.App}>
-            <Nav />
-            <Switch location={isModal ? this.previousLocation : location}>
-              <Route exact path="/" component={Home} />
-              <Route path="/signin" component={SignIn} />
-              <Route path="/addBook" component={SignIn} />
-            </Switch>
-            {isModal ? <Route path="/addBook" component={Modal} /> : null}
-          </div>
-        </EnhancedAuthProvider>
-      </Router>
+      <EnhancedAuthProvider>
+        <div className={styles.App}>
+          <Nav />
+          <Switch location={isModal ? this.previousLocation : location}>
+            <Route exact path="/" component={Home} />
+            <Route path="/signin" component={SignIn} />
+          </Switch>
+          {isModal ? <Route path="/addBook" component={Modal} /> : null}
+        </div>
+      </EnhancedAuthProvider>
     );
   }
 }
